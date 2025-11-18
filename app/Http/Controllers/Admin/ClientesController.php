@@ -25,6 +25,7 @@ class ClientesController extends Controller
             'nome' => 'required|min:3',
             'email' => 'required|email|unique:clientes,email',
             'telefone' => 'nullable|min:8',
+            'imagem' => 'nullable|url',
         ]);
 
         Clientes::create($request->all());
@@ -47,6 +48,7 @@ class ClientesController extends Controller
             'nome' => 'required|min:3',
             'email' => 'required|email|unique:clientes,email,' . $cliente->id,
             'telefone' => 'nullable|min:8',
+            'imagem' => 'nullable|url',
         ]);
 
         $cliente->update($request->all());
@@ -57,10 +59,9 @@ class ClientesController extends Controller
 
     public function destroy($id)
     {
-        $cliente = Clientes::findOrFail($id);
-        $cliente->delete();
+        Clientes::destroy($id);
 
         return redirect()->route('admin.clientes.index')
-                         ->with('sucesso', 'Cliente excluído com sucesso!');
+                         ->with('sucesso', 'Cliente removido!');
     }
 }

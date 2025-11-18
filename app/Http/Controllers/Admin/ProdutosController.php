@@ -11,7 +11,7 @@ class ProdutosController extends Controller
 {
     public function index()
     {
-        $produtos = Produtos::with('categorias')->get();
+        $produtos = Produtos::with('categoria')->get();
         return view('admin.produtos.index', compact('produtos'));
     }
 
@@ -24,16 +24,16 @@ class ProdutosController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome' => 'required|max:255',
-            'descricao' => 'required',
-            'preco' => 'required|numeric|min:0',
-            'categoria_id' => 'required|exists:categorias,id'
+            'nome' => 'required',
+            'descricao' => 'nullable',
+            'preco' => 'required|numeric',
+            'estoque' => 'required|integer',
+            'categoria_id' => 'required|exists:categorias,id',
+            'imagem' => 'nullable|url'
         ]);
 
         Produtos::create($request->all());
-
-        return redirect()->route('admin.produtos.index')
-                         ->with('sucesso', 'Produto criado com sucesso!');
+        return redirect()->route('admin.produtos.index')->with('sucesso', 'Produto criado!');
     }
 
     public function edit($id)
@@ -46,26 +46,24 @@ class ProdutosController extends Controller
 
     public function update(Request $request, $id)
     {
+        $produto = Produtos::findOrFail($id);
+
         $request->validate([
-            'nome' => 'required|max:255',
-            'descricao' => 'required',
-            'preco' => 'required|numeric|min:0',
-            'categoria_id' => 'required|exists:categorias,id'
+            'nome' => 'required',
+            'descricao' => 'nullable',
+            'preco' => 'required|numeric',
+            'estoque' => 'required|integer',
+            'categoria_id' => 'required|exists:categorias,id',
+            'imagem' => 'nullable|url'
         ]);
 
-        $produto = Produtos::findOrFail($id);
         $produto->update($request->all());
-
-        return redirect()->route('admin.produtos.index')
-                         ->with('sucesso', 'Produto atualizado com sucesso!');
+        return redirect()->route('admin.produtos.index')->with('sucesso', 'Produto atualizado!');
     }
 
     public function destroy($id)
     {
-        $produto = Produtos::findOrFail($id);
-        $produto->delete();
-
-        return redirect()->route('admin.produtos.index')
-                         ->with('sucesso', 'Produto excluído com sucesso!');
+        Produtos::destroy($id);
+        return redirect()->route('admin.produtos.index')->with('sucesso', 'Produto removido!');
     }
 }

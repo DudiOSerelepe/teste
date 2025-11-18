@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
+
             $table->string('nome', 150);
             $table->text('descricao')->nullable();
             $table->decimal('preco', 10, 2);
-            $table->integer('estoque');
-            
-            // chave estrangeira
+            $table->integer('estoque')->default(0);
+
+            // Chave estrangeira para categorias
             $table->unsignedBigInteger('categoria_id');
-            $table->foreign('categoria_id')
-                  ->references('id')
-                  ->on('categorias')
-                  ->onDelete('cascade');
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
+
+            // Campo para imagem (URL longa)
+            $table->text('imagem')->nullable();
 
             $table->timestamps();
         });
