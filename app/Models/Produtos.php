@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Produto extends Model
+class Produtos extends Model
 {
     use HasFactory;
 
@@ -18,6 +18,6 @@ class Produto extends Model
 
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class);
+        return $this->belongsTo(Categorias::class);
     }
 }

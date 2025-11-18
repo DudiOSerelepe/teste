@@ -1,12 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('titulo', 'Produtos')
+@section('title', 'Produtos')
 
-@section('conteudo')
-
+@section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Lista de Produtos</h2>
-    <a href="{{ route('produtos.create') }}" class="btn btn-primary">+ Novo Produto</a>
+    <a href="{{ route('admin.produtos.create') }}" class="btn btn-primary">+ Novo Produto</a>
 </div>
 
 @if(session('sucesso'))
@@ -25,29 +24,27 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($produtos as $produto)
+            @forelse($produtos as $produto)
             <tr>
                 <td>{{ $produto->id }}</td>
                 <td>{{ $produto->nome }}</td>
-                <td>{{ $produto->categoria->nome }}</td>
+                <td>{{ $produto->categoria->nome ?? '-' }}</td>
                 <td>R$ {{ number_format($produto->preco, 2, ',', '.') }}</td>
-
                 <td>
-                    <a href="{{ route('produtos.edit', $produto->id) }}" class="btn btn-sm btn-warning">Editar</a>
-
-                    <form action="{{ route('produtos.destroy', $produto->id) }}" method="POST" class="d-inline">
+                    <a href="{{ route('admin.produtos.edit', $produto->id) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <form action="{{ route('admin.produtos.destroy', $produto->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button onclick="return confirm('Deseja excluir?')" class="btn btn-sm btn-danger">
-                            Excluir
-                        </button>
+                        <button onclick="return confirm('Deseja excluir?')" class="btn btn-sm btn-danger">Excluir</button>
                     </form>
                 </td>
-
             </tr>
-            @endforeach
+            @empty
+            <tr>
+                <td colspan="5" class="text-center">Nenhum produto encontrado.</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
 </div>
-
 @endsection

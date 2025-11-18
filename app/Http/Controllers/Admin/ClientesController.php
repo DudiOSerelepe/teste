@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Cliente;
+use App\Http\Controllers\Controller;
+use App\Models\Clientes;
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class ClientesController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::all();
-        return view('clientes.index', compact('clientes'));
+        $clientes = Clientes::all();
+        return view('admin.clientes.index', compact('clientes'));
     }
 
     public function create()
     {
-        return view('clientes.create');
+        return view('admin.clientes.create');
     }
 
     public function store(Request $request)
@@ -26,21 +27,21 @@ class ClienteController extends Controller
             'telefone' => 'nullable|min:8',
         ]);
 
-        Cliente::create($request->all());
+        Clientes::create($request->all());
 
-        return redirect()->route('clientes.index')
+        return redirect()->route('admin.clientes.index')
                          ->with('sucesso', 'Cliente criado com sucesso!');
     }
 
     public function edit($id)
     {
-        $cliente = Cliente::findOrFail($id);
-        return view('clientes.edit', compact('cliente'));
+        $cliente = Clientes::findOrFail($id);
+        return view('admin.clientes.edit', compact('cliente'));
     }
 
     public function update(Request $request, $id)
     {
-        $cliente = Cliente::findOrFail($id);
+        $cliente = Clientes::findOrFail($id);
 
         $request->validate([
             'nome' => 'required|min:3',
@@ -50,16 +51,16 @@ class ClienteController extends Controller
 
         $cliente->update($request->all());
 
-        return redirect()->route('clientes.index')
+        return redirect()->route('admin.clientes.index')
                          ->with('sucesso', 'Cliente atualizado com sucesso!');
     }
 
     public function destroy($id)
     {
-        $cliente = Cliente::findOrFail($id);
+        $cliente = Clientes::findOrFail($id);
         $cliente->delete();
 
-        return redirect()->route('clientes.index')
+        return redirect()->route('admin.clientes.index')
                          ->with('sucesso', 'Cliente excluído com sucesso!');
     }
 }

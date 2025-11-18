@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Produto;
-use App\Models\Categoria;
+use App\Http\Controllers\Controller;
+use App\Models\Produtos;
+use App\Models\Categorias;
 use Illuminate\Http\Request;
 
-class ProdutoController extends Controller
+class ProdutosController extends Controller
 {
     public function index()
     {
-        $produtos = Produto::with('categoria')->get();
-        return view('produtos.index', compact('produtos'));
+        $produtos = Produtos::with('categorias')->get();
+        return view('admin.produtos.index', compact('produtos'));
     }
 
     public function create()
     {
-        $categorias = Categoria::all();
-        return view('produtos.create', compact('categorias'));
+        $categorias = Categorias::all();
+        return view('admin.produtos.create', compact('categorias'));
     }
 
     public function store(Request $request)
@@ -29,18 +30,18 @@ class ProdutoController extends Controller
             'categoria_id' => 'required|exists:categorias,id'
         ]);
 
-        Produto::create($request->all());
+        Produtos::create($request->all());
 
-        return redirect()->route('produtos.index')
+        return redirect()->route('admin.produtos.index')
                          ->with('sucesso', 'Produto criado com sucesso!');
     }
 
     public function edit($id)
     {
-        $produto = Produto::findOrFail($id);
-        $categorias = Categoria::all();
+        $produto = Produtos::findOrFail($id);
+        $categorias = Categorias::all();
 
-        return view('produtos.edit', compact('produto', 'categorias'));
+        return view('admin.produtos.edit', compact('produto', 'categorias'));
     }
 
     public function update(Request $request, $id)
@@ -52,19 +53,19 @@ class ProdutoController extends Controller
             'categoria_id' => 'required|exists:categorias,id'
         ]);
 
-        $produto = Produto::findOrFail($id);
+        $produto = Produtos::findOrFail($id);
         $produto->update($request->all());
 
-        return redirect()->route('produtos.index')
+        return redirect()->route('admin.produtos.index')
                          ->with('sucesso', 'Produto atualizado com sucesso!');
     }
 
     public function destroy($id)
     {
-        $produto = Produto::findOrFail($id);
+        $produto = Produtos::findOrFail($id);
         $produto->delete();
 
-        return redirect()->route('produtos.index')
+        return redirect()->route('admin.produtos.index')
                          ->with('sucesso', 'Produto excluído com sucesso!');
     }
 }
