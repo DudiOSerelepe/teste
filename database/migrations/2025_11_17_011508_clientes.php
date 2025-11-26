@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('telefone', 20)->nullable();
 
-            // Campo imagem como TEXT para suportar URLs grandes
+            
             $table->text('imagem')->nullable();
 
             $table->timestamps();

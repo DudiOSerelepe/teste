@@ -19,20 +19,17 @@ return new class extends Migration
             $table->decimal('preco', 10, 2);
             $table->integer('estoque')->default(0);
 
-            // Chave estrangeira para categorias
             $table->unsignedBigInteger('categoria_id');
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
 
-            // Campo para imagem (URL longa)
+            
             $table->text('imagem')->nullable();
 
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('produtos');

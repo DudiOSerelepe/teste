@@ -20,7 +20,6 @@
 </head>
 <body>
     <div class="d-flex">
-        <!-- Sidebar -->
         <aside class="bg-dark text-white p-3" style="width: 250px; min-height: 100vh;">
             <h3 class="text-center">Ecommerce Esportivo</h3>
             <ul class="nav flex-column mt-4">
@@ -36,11 +35,10 @@
                 <li class="nav-item mb-2">
                     <a class="nav-link text-white" href="{{ route('admin.clientes.index') }}">Clientes</a>
                 </li>
-                <!-- Adicione outros links conforme necessário -->
+                
             </ul>
         </aside>
 
-        <!-- Conteúdo principal -->
         <div class="flex-grow-1">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -68,10 +66,10 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Debugbar JS -->
+   
     @if(config('debugbar.enabled'))
         {!! Debugbar::render() !!}
     @endif

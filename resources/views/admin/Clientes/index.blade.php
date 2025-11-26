@@ -5,7 +5,7 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold">Clientes</h2>
-    <a href="{{ route('admin.clientes.create') }}" class="btn btn-primary">+ Novo Cliente</a>
+    <a href="{{ route('admin.clientes.create') }}" class="btn btn-primary">+ Novo Cliente</a> 
 </div>
 
 <table class="table table-striped table-hover">

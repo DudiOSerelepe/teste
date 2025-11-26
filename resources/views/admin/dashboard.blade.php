@@ -86,7 +86,7 @@
                 <img src="https://d3qoj2c6mu9s8x.cloudfront.net/Custom/Content/Products/17/21/17210_mini-bola-adidas-copa-do-mundo-brazuca-14_z1_636378803711572862.webp" class="d-block w-100" alt="">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Equipamentos</h5>
-                    <p>Mini Bola Brazuca</p>
+                    <p> Bola Brazuca Copa do Mundo 2014</p>
                 </div>
             </div>
 

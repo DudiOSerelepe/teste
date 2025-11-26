@@ -60,7 +60,7 @@
         </div>
     </nav>
 
-    <!-- CONTEÚDO -->
+    
     <div class="container mt-4">
         @yield('conteudo')
     </div>
